@@ -1,15 +1,14 @@
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
-import { NavigationContainer } from '@react-navigation/native';
-import Home from './component/home';
+import HomeScreen from './tabs/home';
+import SystemScreen from './tabs/system';
 
 export default function Index() {
   const Tab = createBottomTabNavigator();
 
   return (
-    <NavigationContainer>
-      <Tab.Navigator>
-        <Tab.Screen name="home" component={Home}/>
-      </Tab.Navigator>
-    </NavigationContainer>
+    <Tab.Navigator screenOptions={{headerShown:false}}>
+      <Tab.Screen name='home' component={HomeScreen}/>
+      <Tab.Screen name='system' component={SystemScreen}/>
+    </Tab.Navigator>
   );
 }
