@@ -6,7 +6,7 @@ export default function HomeScreen(){
 
     return (
         <SafeAreaView style={styles.container}>
-            <SliderBanner/>
+            <SliderBanner normalLst={["", ""]}/>
         </SafeAreaView> 
     );
 }

@@ -1,43 +1,35 @@
-import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions} from 'react-native';
+import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, TouchableWithoutFeedback} from 'react-native';
 import React, {useRef, useState, useCallback} from "react";
 import { useFocusEffect } from '@react-navigation/native';
 
 export default function Banner() {
     const flatUseRef = useRef<FlatList>(null)
-    const normalLst = ["홈이당1", "홈이당2", "홈이당3", "홈이당4", "홈이당5", "홈이당1"];
+    const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+    const normalLst = ["홈이당0", "홈이당1", "홈이당2", "홈이당3"];
     const [index, setIndex] = useState(0);
+    const [isTouched, setTouched] = useState(false)
     const screenWidth = Dimensions.get('window').width - 32; // 현재 화면의 너비 가져오기
-    const slideSecond = () => {
-        if (index == normalLst.length-1){
-            return 0
-        }
-        return 2000
-    }
 
-    // last Index일때 처음으로 돌아가기
     useFocusEffect(
         useCallback(() => {
-            const interval = setInterval(() => {
+            if(isTouched) return;
+            intervalRef.current = setInterval(() => {
                 console.log(`interval 들어옴, 현재 ${index}`);
                 setIndex((prevIndex) => {
                     const nextIndex = (prevIndex + 1) % normalLst.length
-                    if(prevIndex == normalLst.length-1){
-                        flatUseRef.current?.scrollToIndex({ 
-                            index: nextIndex, 
-                            animated: false 
-                        })
-                    } else{
-                        flatUseRef.current?.scrollToIndex({ 
-                            index: nextIndex,
-                            animated: true 
-                        })
-                    }
+                    flatUseRef.current?.scrollToIndex({ 
+                        index: nextIndex,
+                        animated: true 
+                    })
                     console.log(`from ${prevIndex} to ${nextIndex}`);
                     return nextIndex
                 })
-            }, index === normalLst.length - 1 ? 0 : 2000)
-            return () => clearInterval(interval)
-        }, [])
+                console.log(`현재 ${index}`);
+            }, 5000)
+            return () => {
+                clearInterval(intervalRef.current)
+            }
+        }, [index, isTouched])
     );
 
     return (
@@ -52,9 +44,17 @@ export default function Banner() {
             scrollEnabled={false}
             contentContainerStyle={{gap:20}}
             renderItem={({item}) => (
-                <SafeAreaView style={[styles.view, {width : screenWidth}]}>
-                    <Text style={styles.text}>{item}</Text>
-                </SafeAreaView>
+                <TouchableWithoutFeedback
+                    onPressIn={() => {
+                        setTouched(true)
+                    }}
+                    onPressOut={() => {
+                        setTouched(false)
+                    }}>
+                    <SafeAreaView style={[styles.view, {width : screenWidth}]}>
+                        <Text style={styles.text}>{item}</Text>
+                    </SafeAreaView>
+                </TouchableWithoutFeedback>
             )}/>
         </SafeAreaView>
     )
