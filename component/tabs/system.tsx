@@ -1,13 +1,17 @@
-import { SafeAreaView, Text} from 'react-native';
+import { SafeAreaView, StyleSheet, Text} from 'react-native';
 
 export default function SystemScreen(){
     return (
-        <SafeAreaView style={{
-            flex:1,
-            justifyContent:'center',
-            alignItems:'center'
-        }}>
+        <SafeAreaView style={styles.container}>
             <Text>시스템이당</Text>
         </SafeAreaView>
     );
 }
+
+const styles = StyleSheet.create({
+    container : {
+        flex:1,
+        justifyContent:'center',
+        alignItems:'center'
+    }
+})

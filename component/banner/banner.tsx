@@ -2,10 +2,13 @@ import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, TouchableWithoutF
 import React, {useRef, useState, useCallback} from "react";
 import { useFocusEffect } from '@react-navigation/native';
 
-export default function Banner() {
+interface BannerProps{
+    bannerArray : string[]
+}
+
+const Banner = ({bannerArray} : BannerProps) => {
     const flatUseRef = useRef<FlatList>(null)
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
-    const normalLst = ["홈이당0", "홈이당1", "홈이당2", "홈이당3"];
     const [index, setIndex] = useState(0);
     const [isTouched, setTouched] = useState(false)
     const screenWidth = Dimensions.get('window').width - 32; // 현재 화면의 너비 가져오기
@@ -16,7 +19,7 @@ export default function Banner() {
             intervalRef.current = setInterval(() => {
                 console.log(`interval 들어옴, 현재 ${index}`);
                 setIndex((prevIndex) => {
-                    const nextIndex = (prevIndex + 1) % normalLst.length
+                    const nextIndex = (prevIndex + 1) % bannerArray.length
                     flatUseRef.current?.scrollToIndex({ 
                         index: nextIndex,
                         animated: true 
@@ -37,7 +40,7 @@ export default function Banner() {
             <FlatList
             style={styles.flatLst}
             ref={flatUseRef}
-            data={normalLst}
+            data={bannerArray}
             horizontal
             keyExtractor={(_, i) => (i.toString())}
             showsHorizontalScrollIndicator={false}
@@ -79,3 +82,5 @@ const styles = StyleSheet.create({
     text : {
     }
 })
+
+export default Banner;
