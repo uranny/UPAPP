@@ -1,9 +1,9 @@
-import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, TouchableWithoutFeedback} from 'react-native';
+import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, TouchableWithoutFeedback, Image, Pressable, TextStyle, ViewStyle} from 'react-native';
 import React, {useRef, useState, useCallback} from "react";
 import { useFocusEffect } from '@react-navigation/native';
 
 interface BannerProps{
-    bannerArray : string[]
+    bannerArray : Banner[]
 }
 
 const Banner = ({bannerArray} : BannerProps) => {
@@ -19,18 +19,34 @@ const Banner = ({bannerArray} : BannerProps) => {
             intervalRef.current = setInterval(() => {
                 console.log(`interval 들어옴, 현재 ${index}`);
                 setIndex((prevIndex) => {
-                    const nextIndex = (prevIndex + 1) % bannerArray.length
-                    flatUseRef.current?.scrollToIndex({ 
-                        index: nextIndex,
-                        animated: true 
-                    })
-                    console.log(`from ${prevIndex} to ${nextIndex}`);
+                    let nextIndex = (prevIndex + 1) % bannerArray.length
+                    if(nextIndex === 0){
+                        flatUseRef.current?.scrollToIndex({
+                            index: nextIndex,
+                            animated: false
+                        })
+                        setTimeout(() => {
+                            flatUseRef.current?.scrollToIndex({
+                                index: 1,
+                                animated: true
+                            })
+                        })
+                        nextIndex = 1
+                        console.log(`from ${prevIndex} to ${nextIndex}`);
+                    } else {
+                        flatUseRef.current?.scrollToIndex({ 
+                            index: nextIndex,
+                            animated: true 
+                        })
+                        console.log(`from ${prevIndex} to ${nextIndex}`);
+                    }
                     return nextIndex
                 })
-                console.log(`현재 ${index}`);
-            }, 5000)
+            }, 2000)
+            console.log(`현재 ${index}`);
             return () => {
                 clearInterval(intervalRef.current)
+                intervalRef.current = null
             }
         }, [index, isTouched])
     );
@@ -47,20 +63,38 @@ const Banner = ({bannerArray} : BannerProps) => {
             scrollEnabled={false}
             contentContainerStyle={{gap:20}}
             renderItem={({item}) => (
-                <TouchableWithoutFeedback
-                    onPressIn={() => {
-                        setTouched(true)
-                    }}
-                    onPressOut={() => {
-                        setTouched(false)
-                    }}>
-                    <SafeAreaView style={[styles.view, {width : screenWidth}]}>
-                        <Text style={styles.text}>{item}</Text>
+                <Pressable
+                    onPressIn={() => setTouched(true)}
+                    onPressOut={() => setTouched(false)}>
+                    <SafeAreaView style={[styles.bannerContainer, {width : screenWidth}]}>
+                        <Image source={{uri : item.img}} style={[styles.img, {width : screenWidth}]} />
+                        <SafeAreaView style={[styles.textContainer, {width : screenWidth}]}>
+                            <Text style={styles.owner}>
+                                {item.owner}
+                            </Text>
+                            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.title}>
+                                {item.title}
+                            </Text>
+                        </SafeAreaView>
+                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.period}>
+                            {`신청기간 : ${item.startTime} ~ ${item.lastTime}`}
+                        </Text>
                     </SafeAreaView>
-                </TouchableWithoutFeedback>
+                </Pressable>
             )}/>
         </SafeAreaView>
     )
+}
+
+const commonContainerStyle = {
+    height : 200,
+    borderRadius : 10,
+}
+
+const commonTextStyle : TextStyle = {
+    position : "absolute",
+    fontWeight : "bold",
+    color : "#ffffff"
 }
 
 const styles = StyleSheet.create({
@@ -69,17 +103,47 @@ const styles = StyleSheet.create({
         marginLeft : 16,
         marginRight : 16,
     },
-    view : {
-        height:200,
-        backgroundColor : 'rgb(255, 99, 99)',
-        borderColor : '#000000',
+
+    bannerContainer : {
+        ...commonContainerStyle,
+        backgroundColor : 'rgb(146, 146, 146)',
         borderStyle : 'solid',
-        borderWidth : 1,
         alignItems : 'center',
         justifyContent : 'center',
-        borderRadius : 10
     },
-    text : {
+
+    textContainer : {
+        ...commonContainerStyle,
+        position : 'absolute',
+        backgroundColor : 'rgba(0, 0, 0, 0.6)',
+    },
+
+    img : {
+        ...commonContainerStyle,
+        position : 'relative',
+    },
+
+    title : {
+        ...commonTextStyle,
+        fontSize : 20,
+        bottom : 40,
+        left : 16,
+        paddingRight : 16
+    },
+
+    period : {
+        ...commonTextStyle,
+        fontSize : 12,
+        bottom : 24,
+        left : 16,
+        paddingRight : 16
+    },
+
+    owner : {
+        ...commonTextStyle,
+        fontSize : 16,
+        top : 16,
+        right : 16
     }
 })
 

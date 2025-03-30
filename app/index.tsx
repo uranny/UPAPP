@@ -5,8 +5,24 @@ import JobScreen from '../component/tabs/job';
 import CommunityScreen from '../component/tabs/community';
 import SystemScreen from '../component/tabs/system';
 import Icon from "react-native-vector-icons/Ionicons"
+import React from 'react';
 
 const Tab = createBottomTabNavigator();
+
+interface TabProps {
+  title: string;
+  component: React.ComponentType;
+  icon: string;
+}
+
+// ✅ 탭 정보 배열
+const tabs: TabProps[] = [
+  { title: 'Home', component: HomeScreen, icon: 'home' },
+  { title: 'Rally', component: RallyScreen, icon: 'trophy' },
+  { title: 'Job', component: JobScreen, icon: 'document-text' },
+  { title: 'Community', component: CommunityScreen, icon: 'chatbubbles' },
+  { title: 'System', component: SystemScreen, icon: 'settings' }
+];
 
 export default function Index() {
   return (
@@ -23,41 +39,16 @@ export default function Index() {
       }
     }}
     >
-      <Tab.Screen 
-        name='Home' 
-        component={HomeScreen} 
+      {tabs.map(({title, component, icon}) => (
+        <Tab.Screen
+        key={title}
+        name={title}
+        component={component} 
         options={
           {tabBarIcon:({color, size}) => (
-          <Icon name="home" size={size} color={color}/>
+          <Icon name={icon} size={size} color={color}/>
         )}}/>
-      <Tab.Screen 
-        name='Rally' 
-        component={RallyScreen} 
-        options={
-          {tabBarIcon:({color, size}) => (
-          <Icon name="trophy" size={size} color={color}/>
-        )}}/>
-      <Tab.Screen 
-        name='Job' 
-        component={JobScreen} 
-        options={
-          {tabBarIcon:({color, size}) => (
-          <Icon name="document-text" size={size} color={color}/>
-        )}}/>
-      <Tab.Screen 
-        name='Community' 
-        component={CommunityScreen} 
-        options={
-          {tabBarIcon:({color, size}) => (
-          <Icon name="chatbubbles" size={size} color={color}/>
-        )}}/>
-      <Tab.Screen 
-        name='System' 
-        component={SystemScreen}
-        options={
-          {tabBarIcon:({color, size}) => (
-            <Icon name="settings" size={size} color={color}/>
-          )}}/>
+      ))}
     </Tab.Navigator>
   );
 }
