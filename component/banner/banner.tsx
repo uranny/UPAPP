@@ -1,4 +1,4 @@
-import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, TouchableWithoutFeedback, Image, Pressable, TextStyle, ViewStyle} from 'react-native';
+import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, View, Image, Pressable, TextStyle} from 'react-native';
 import React, {useRef, useState, useCallback} from "react";
 import { useFocusEffect } from '@react-navigation/native';
 
@@ -9,6 +9,7 @@ interface BannerProps{
 const Banner = ({bannerArray} : BannerProps) => {
     const flatUseRef = useRef<FlatList>(null)
     const intervalRef = useRef<ReturnType<typeof setInterval> | null>(null)
+
     const [index, setIndex] = useState(0);
     const [isTouched, setTouched] = useState(false)
     const screenWidth = Dimensions.get('window').width - 32; // 현재 화면의 너비 가져오기
@@ -42,17 +43,19 @@ const Banner = ({bannerArray} : BannerProps) => {
                     }
                     return nextIndex
                 })
-            }, 2000)
+            }, 5000)
             console.log(`현재 ${index}`);
             return () => {
-                clearInterval(intervalRef.current)
+                if(intervalRef.current != null){
+                    clearInterval(intervalRef.current)
+                }
                 intervalRef.current = null
             }
         }, [index, isTouched])
     );
 
     return (
-        <SafeAreaView>
+        <View>
             <FlatList
             style={styles.flatLst}
             ref={flatUseRef}
@@ -66,23 +69,23 @@ const Banner = ({bannerArray} : BannerProps) => {
                 <Pressable
                     onPressIn={() => setTouched(true)}
                     onPressOut={() => setTouched(false)}>
-                    <SafeAreaView style={[styles.bannerContainer, {width : screenWidth}]}>
+                    <View style={[styles.bannerContainer, {width : screenWidth}]}>
                         <Image source={{uri : item.img}} style={[styles.img, {width : screenWidth}]} />
-                        <SafeAreaView style={[styles.textContainer, {width : screenWidth}]}>
+                        <View style={[styles.textContainer, {width : screenWidth}]}>
                             <Text style={styles.owner}>
                                 {item.owner}
                             </Text>
                             <Text numberOfLines={1} ellipsizeMode='tail' style={styles.title}>
                                 {item.title}
                             </Text>
-                        </SafeAreaView>
+                        </View>
                         <Text numberOfLines={1} ellipsizeMode='tail' style={styles.period}>
                             {`신청기간 : ${item.startTime} ~ ${item.lastTime}`}
                         </Text>
-                    </SafeAreaView>
+                    </View>
                 </Pressable>
             )}/>
-        </SafeAreaView>
+        </View>
     )
 }
 
