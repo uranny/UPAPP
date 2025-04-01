@@ -19,22 +19,22 @@ export default function HomeScreen(){
         {id : 0,
         title : "stac1",
         category : Category.lit, 
-        startTime : "2024.10.16(월)",
-        endTime : "2025.10.16(월)", 
+        startTime : "2024.10.16",
+        endTime : "2025.10.16", 
         owner : "SK Planet", 
         img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"},
         {id : 1,
         title : "stac2",
         category : Category.lit, 
-        startTime : "2024.10.16(월)", 
-        endTime : "2025.10.16(월)", 
+        startTime : "2024.10.16", 
+        endTime : "2025.10.16", 
         owner : "SK Planet", 
         img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"},
         {id : 2,
         title : "stac3",
         category : Category.lit, 
-        startTime : "2024.10.16(월)", 
-        endTime : "2025.10.16(월)", 
+        startTime : "2024.10.16", 
+        endTime : "2025.10.16", 
         owner : "SK Planet", 
         img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"},
     ]
@@ -46,17 +46,12 @@ export default function HomeScreen(){
 
     return (
         <View style={styles.screenContainer}>
-            <ScrollView>
+            <ScrollView
+            showsVerticalScrollIndicator = {false}>
                 <Banner bannerArray={normalLst}/>
-                <Announcement rallyLst={rallyLst}/>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>구인공고</Text>
-                    <Text style={styles.moreTxt}>더보기</Text>
-                </View>
-                <View style={styles.titleContainer}>
-                    <Text style={styles.title}>커뮤니티</Text>
-                    <Text style={styles.moreTxt}>더보기</Text>
-                </View>
+                <Announcement title='대회안내' rallyLst={rallyLst}/>
+                <Announcement title='구인공고' rallyLst={rallyLst}/>
+                <Announcement title='커뮤니티' rallyLst={rallyLst}/>
             </ScrollView>
         </View> 
     );
