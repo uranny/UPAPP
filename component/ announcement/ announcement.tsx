@@ -3,8 +3,9 @@ import { JobPost } from "@/type/job/job";
 import { RallyPost } from "@/type/rally/rally";
 import { useState } from "react";
 import { PostType } from "@/type/postType";
-import { View, Text, FlatList, ActivityIndicator, StyleSheet} from "react-native";
-import { AnnouncementPost } from "./post/postView";
+import { View, Text, FlatList, StyleSheet} from "react-native";
+import { CommunityPostView } from "../post/communityPostVIew";
+import { PostView } from "../post/postView";
 
 interface AnnouncementProps {
     title : string,
@@ -52,10 +53,10 @@ export const Announcement = (props : AnnouncementProps) => {
             // ListFooterComponent={loading ? <ActivityIndicator style={{marginEnd : 12}} size={24} color="#000000" /> : null}
             renderItem={({item}) => (
                 isCommunityPost(item) ? 
-                <AnnouncementPost communityPost={item}/> : 
+                <CommunityPostView post={item}/> : 
                 isRallyPost(item) ? 
-                <AnnouncementPost rallyPost={item}/> :
-                <AnnouncementPost jobPost={item}/>
+                <PostView rallyPost={item} announcement={true}/> :
+                <PostView jobPost={item} announcement={true}/>
             )}/>
         </>
     );
@@ -63,8 +64,8 @@ export const Announcement = (props : AnnouncementProps) => {
 
 const styles = StyleSheet.create({
     titleContainer : {
-        marginStart : 16,
-        marginEnd : 16,
+        marginStart : 20,
+        marginEnd : 20,
         marginTop : 24,
         flexDirection: 'row',
         justifyContent : "space-between",

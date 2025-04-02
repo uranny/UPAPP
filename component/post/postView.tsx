@@ -1,24 +1,22 @@
-import { CommunityPost } from "@/type/community/community"
 import { JobPost } from "@/type/job/job"
 import { RallyPost } from "@/type/rally/rally"
 import { StyleSheet, View, Image, Text, Pressable } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { Category } from "@/type/enum/category"
-import { isCommunityPost } from "../ announcement"
-import { isRallyPost } from "../ announcement"
+import { isRallyPost } from "../ announcement/ announcement"
 import { CustomText } from "@/component/custom/customText"
-import { CommunityAnnouncementPost } from "./communityPostVIew"
+import React from "react"
 
-interface AnnouncementPostProps {
+interface PostViewProps {
     rallyPost ?: RallyPost
     jobPost ?: JobPost
-    communityPost ?: CommunityPost
+    announcement ?: boolean
 }
 
-export const AnnouncementPost = (props : AnnouncementPostProps) => {
+export const PostView = (props : PostViewProps) => {
 
     const getItem = () => 
-    [props.rallyPost, props.jobPost, props.communityPost]
+    [props.rallyPost, props.jobPost]
     .find(post => post !== undefined) 
     ?? {
         id : 0,
@@ -32,12 +30,23 @@ export const AnnouncementPost = (props : AnnouncementPostProps) => {
     
     const item = getItem()
 
-    return (isCommunityPost(item) ? (
-        <CommunityAnnouncementPost post={item}/>
-    ) : (
-        <View style={styles.mainContainer}>
-            <Image source={{uri : item.img}} style={styles.imgContainer}/>
-            <View style={styles.textContainer}>
+    const announcementStyle = () => {
+        if(props.announcement === true){
+            return {
+                width : 300,
+                height : 160
+            }
+        } else {
+            return
+        }
+    }
+
+    return (
+        <View style={[styles.mainContainer, announcementStyle()]}>
+            <Image 
+            source={{uri : item.img}} 
+            style={[styles.imgContainer,  announcementStyle()]}/>
+            <View style={[styles.textContainer,  announcementStyle()]}>
                 <View style={styles.categoryContainer}>
                     <CustomText style={styles.categoryTxt}>{item.category}</CustomText>
                 </View>
@@ -59,13 +68,11 @@ export const AnnouncementPost = (props : AnnouncementPostProps) => {
                 </View>
             </View>
         </View>
-    ))
+    )
 }
 
 const commonContainerStyle = {
-    borderRadius : 12,
-    width : 300,
-    height : 160
+    borderRadius : 12
 }
 
 const styles = StyleSheet.create({

@@ -4,12 +4,12 @@ import { Pressable, StyleSheet, TextStyle, View } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 
 
-interface CommunityAnnouncementPostProps {
+interface CommunityPostViewProps {
     post : CommunityPost
 }
 
-export const CommunityAnnouncementPost = 
-({post} : CommunityAnnouncementPostProps) => {
+export const CommunityPostView = 
+({post} : CommunityPostViewProps) => {
     return (
         <View style={styles.mainContainer}>
             <View style={styles.textContainer}>
