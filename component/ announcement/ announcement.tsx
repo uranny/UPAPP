@@ -32,7 +32,7 @@ export const Announcement = (props : AnnouncementProps) => {
                 <Text style={styles.moreTxt}>더보기</Text>
             </View>
             <FlatList<PostType>
-            style = {{paddingStart : 16, paddingEnd : 16, marginTop : 12, marginBottom : 16}}
+            style = {{paddingStart : 16, paddingEnd : 16, marginTop : 16, marginBottom : 16}}
             horizontal = {isCommunityPost(baseLst[0]) ? false : true}
             scrollEnabled={isCommunityPost(baseLst[0]) ? false : true}
             data={baseLst}
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     titleContainer : {
         marginStart : 16,
         marginEnd : 16,
-        marginTop : 36,
+        marginTop : 24,
         flexDirection: 'row',
         justifyContent : "space-between",
         alignItems : "flex-end"
