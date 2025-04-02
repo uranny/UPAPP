@@ -5,5 +5,6 @@ export interface JobPost{
     title : string,
     category : Category,
     task : string,
-    owner : string
+    owner : string,
+    img : string
 }

@@ -1,6 +1,7 @@
 import { SafeAreaView, Text, StyleSheet, FlatList, Dimensions, View, Image, Pressable, TextStyle} from 'react-native';
 import React, {useRef, useState, useCallback} from "react";
 import { useFocusEffect } from '@react-navigation/native';
+import { CustomText } from '../custom/customText';
 
 interface BannerProps{
     bannerArray : Banner[]
@@ -72,16 +73,16 @@ const Banner = ({bannerArray} : BannerProps) => {
                     <View style={[styles.bannerContainer, {width : screenWidth}]}>
                         <Image source={{uri : item.img}} style={[styles.img, {width : screenWidth}]} />
                         <View style={[styles.textContainer, {width : screenWidth}]}>
-                            <Text style={styles.owner}>
+                            <CustomText style={styles.owner}>
                                 {item.owner}
-                            </Text>
-                            <Text numberOfLines={1} ellipsizeMode='tail' style={styles.title}>
+                            </CustomText>
+                            <CustomText style={styles.title}>
                                 {item.title}
-                            </Text>
+                            </CustomText>
                         </View>
-                        <Text numberOfLines={1} ellipsizeMode='tail' style={styles.period}>
+                        <CustomText style={styles.period}>
                             {`신청기간 : ${item.startTime} ~ ${item.lastTime}`}
-                        </Text>
+                        </CustomText>
                     </View>
                 </Pressable>
             )}/>
@@ -97,7 +98,7 @@ const commonContainerStyle = {
 const commonTextStyle : TextStyle = {
     position : "absolute",
     fontWeight : "bold",
-    color : "#ffffff"
+    color : "#ffffff",
 }
 
 const styles = StyleSheet.create({
