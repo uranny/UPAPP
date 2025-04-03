@@ -1,17 +1,16 @@
-import { SafeAreaView, StyleSheet, Text} from 'react-native';
+import { StyleSheet, Text, TextInput, View} from 'react-native';
+import { SearchBox } from '../search/seachBox';
 
 export default function RallyScreen(){
+    const getLst = (txt : string) => {
+        console.log(`${txt} 서치 호출`)
+    }
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>대회공고당</Text>
-        </SafeAreaView>
+        <View>
+            <SearchBox onClick={getLst}/>
+        </View>
     );
 }
 
 const styles = StyleSheet.create({
-    container : {
-        flex:1,
-        justifyContent:'center',
-        alignItems:'center'
-    }
 })

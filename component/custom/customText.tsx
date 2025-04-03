@@ -1,5 +1,5 @@
 import React from "react"
-import { Text, TextProps } from "react-native"
+import { StyleSheet, Text, TextProps } from "react-native"
 
 interface CustomTextProps extends TextProps {
     children : React.ReactNode;
@@ -7,8 +7,14 @@ interface CustomTextProps extends TextProps {
 
 export const CustomText = ({children, style, ...props} : CustomTextProps) => {
     return (
-        <Text numberOfLines={1} ellipsizeMode='tail' style={style}>
+        <Text numberOfLines={1} ellipsizeMode='tail' style={[style, styles.defaultTxt]}>
             {children}
         </Text>
     )
 }
+
+const styles = StyleSheet.create({
+    defaultTxt : {
+        fontFamily : "pretendard_medium"
+    }
+})

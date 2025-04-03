@@ -3,7 +3,7 @@ import { JobPost } from "@/type/job/job";
 import { RallyPost } from "@/type/rally/rally";
 import { useState } from "react";
 import { PostType } from "@/type/postType";
-import { View, Text, FlatList, StyleSheet} from "react-native";
+import { View, Text, FlatList, StyleSheet, Platform} from "react-native";
 import { CommunityPostView } from "../post/communityPostVIew";
 import { PostView } from "../post/postView";
 
@@ -39,7 +39,12 @@ export const Announcement = (props : AnnouncementProps) => {
             data={baseLst}
             showsHorizontalScrollIndicator={false}
             showsVerticalScrollIndicator={false}
-            contentContainerStyle={{gap:isCommunityPost(baseLst[0]) ? 8 : 16}}
+            contentContainerStyle={
+                {
+                    gap:isCommunityPost(baseLst[0]) ? 8 : 
+                    Platform.select({ios : 16, android : 0})
+                }
+            }
             onEndReached={() => {
                 if(loading){return}
                 console.log("로딩 true됨")
@@ -49,8 +54,6 @@ export const Announcement = (props : AnnouncementProps) => {
                     setLoading(false)
                 }, 10000)
             }}
-            // onEndReachedThreshold={0.5}
-            // ListFooterComponent={loading ? <ActivityIndicator style={{marginEnd : 12}} size={24} color="#000000" /> : null}
             renderItem={({item}) => (
                 isCommunityPost(item) ? 
                 <CommunityPostView post={item}/> : 

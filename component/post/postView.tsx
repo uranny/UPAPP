@@ -1,6 +1,6 @@
 import { JobPost } from "@/type/job/job"
 import { RallyPost } from "@/type/rally/rally"
-import { StyleSheet, View, Image, Text, Pressable } from "react-native"
+import { StyleSheet, View, Image, Text, Pressable, Platform } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { Category } from "@/type/enum/category"
 import { isRallyPost } from "../ announcement/ announcement"
@@ -78,7 +78,8 @@ const commonContainerStyle = {
 const styles = StyleSheet.create({
     mainContainer : {
         ...commonContainerStyle,
-        backgroundColor : 'rgb(146, 146, 146)'
+        backgroundColor : 'rgb(146, 146, 146)',
+        marginEnd : Platform.select({ios : 16, android : 32})
     },
     imgContainer : {
         ...commonContainerStyle,

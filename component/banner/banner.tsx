@@ -56,37 +56,35 @@ const Banner = ({bannerArray} : BannerProps) => {
     );
 
     return (
-        <View>
-            <FlatList
-            style={styles.flatLst}
-            ref={flatUseRef}
-            data={bannerArray}
-            horizontal
-            keyExtractor={(_, i) => (i.toString())}
-            showsHorizontalScrollIndicator={false}
-            scrollEnabled={false}
-            contentContainerStyle={{gap:20}}
-            renderItem={({item}) => (
-                <Pressable
-                    onPressIn={() => setTouched(true)}
-                    onPressOut={() => setTouched(false)}>
-                    <View style={[styles.bannerContainer, {width : screenWidth}]}>
-                        <Image source={{uri : item.img}} style={[styles.img, {width : screenWidth}]} />
-                        <View style={[styles.textContainer, {width : screenWidth}]}>
-                            <CustomText style={styles.owner}>
-                                {item.owner}
-                            </CustomText>
-                            <CustomText style={styles.title}>
-                                {item.title}
-                            </CustomText>
-                        </View>
-                        <CustomText style={styles.period}>
-                            {`신청기간 : ${item.startTime} ~ ${item.lastTime}`}
+        <FlatList
+        style={styles.flatLst}
+        ref={flatUseRef}
+        data={bannerArray}
+        horizontal
+        keyExtractor={(_, i) => (i.toString())}
+        showsHorizontalScrollIndicator={false}
+        scrollEnabled={false}
+        contentContainerStyle={{gap:20}}
+        renderItem={({item}) => (
+            <Pressable
+                onPressIn={() => setTouched(true)}
+                onPressOut={() => setTouched(false)}>
+                <View style={[styles.bannerContainer, {width : screenWidth}]}>
+                    <Image source={{uri : item.img}} style={[styles.img, {width : screenWidth}]} />
+                    <View style={[styles.textContainer, {width : screenWidth}]}>
+                        <CustomText style={styles.owner}>
+                            {item.owner}
+                        </CustomText>
+                        <CustomText style={styles.title}>
+                            {item.title}
                         </CustomText>
                     </View>
-                </Pressable>
-            )}/>
-        </View>
+                    <CustomText style={styles.period}>
+                        {`신청기간 : ${item.startTime} ~ ${item.lastTime}`}
+                    </CustomText>
+                </View>
+            </Pressable>
+        )}/>
     )
 }
 

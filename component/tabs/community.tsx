@@ -1,14 +1,14 @@
-import { SafeAreaView, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet} from 'react-native';
+import { SearchBox } from '../search/seachBox';
 
 export default function CommunityScreen(){
+    const getLst = (txt : string) => {
+        console.log(`${txt} 서치 호출`)
+    }
     return (
-        <SafeAreaView style={{
-            flex:1,
-            justifyContent:'center',
-            alignItems:'center'
-        }}>
-            <Text>커뮤니티당</Text>
-        </SafeAreaView>
+        <View>
+            <SearchBox onClick={getLst}/>
+        </View>
     );
 }
 

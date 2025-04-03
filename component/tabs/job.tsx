@@ -1,10 +1,14 @@
-import { SafeAreaView, StyleSheet, Text} from 'react-native';
+import { View, StyleSheet, Text} from 'react-native';
+import { SearchBox } from '../search/seachBox';
 
 export default function JobScreen(){
+    const getLst = (txt : string) => {
+        console.log(`${txt} 서치 호출`)
+    }
     return (
-        <SafeAreaView style={styles.container}>
-            <Text>구인공고당</Text>
-        </SafeAreaView>
+        <View>
+            <SearchBox onClick={getLst}/>
+        </View>
     );
 }
 
