@@ -1,6 +1,6 @@
 import { JobPost } from "@/type/job/job"
 import { RallyPost } from "@/type/rally/rally"
-import { StyleSheet, View, Image, Text, Pressable, Platform } from "react-native"
+import { StyleSheet, View, Image, Pressable, Platform } from "react-native"
 import Icon from "react-native-vector-icons/Ionicons"
 import { Category } from "@/type/enum/category"
 import { isRallyPost } from "../ announcement/ announcement"
@@ -30,23 +30,26 @@ export const PostView = (props : PostViewProps) => {
     
     const item = getItem()
 
-    const announcementStyle = () => {
-        if(props.announcement === true){
+    const viewStyle = () => {
+        if(props.announcement){
             return {
                 width : 300,
                 height : 160
             }
         } else {
-            return
+            return {
+                width : "100%",
+                height : 200
+            }
         }
     }
 
     return (
-        <View style={[styles.mainContainer, announcementStyle()]}>
+        <View style={[styles.mainContainer, viewStyle()]}>
             <Image 
             source={{uri : item.img}} 
-            style={[styles.imgContainer,  announcementStyle()]}/>
-            <View style={[styles.textContainer,  announcementStyle()]}>
+            style={[styles.imgContainer,  viewStyle()]}/>
+            <View style={[styles.textContainer,  viewStyle()]}>
                 <View style={styles.categoryContainer}>
                     <CustomText style={styles.categoryTxt}>{item.category}</CustomText>
                 </View>

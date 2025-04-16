@@ -78,6 +78,34 @@ export const jobLst : JobPost[] = [
     owner : "몰라", 
     img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"
     },
+    {id : 2,
+    title : "stac2",
+    category : Category.lit,
+    task : "dsaf",
+    owner : "몰라", 
+    img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"
+    },
+    {id : 3,
+    title : "stac1",
+    category : Category.lit,
+    task : "dsaf",
+    owner : "몰라", 
+    img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"
+    },
+    {id : 4,
+    title : "stac2",
+    category : Category.lit,
+    task : "dsaf",
+    owner : "몰라", 
+    img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"
+    },
+    {id : 5,
+    title : "stac1",
+    category : Category.lit,
+    task : "dsaf",
+    owner : "몰라", 
+    img : "https://i0.wp.com/hanamon.kr/wp-content/uploads/2021/09/HTTP-%E1%84%91%E1%85%B3%E1%84%85%E1%85%A9%E1%84%90%E1%85%A9%E1%84%8F%E1%85%A9%E1%86%AF.png?w=512&ssl=1"
+    },
 ]
 
 export const communityLst : CommunityPost[] = [
@@ -123,6 +151,30 @@ export const communityLst : CommunityPost[] = [
     },
     {
         id : 5,
+        title : "커뮤니티당3",
+        category : CommunityCategory.announcement,
+        time : "2025.04.01",
+        owner : "나당",
+        comment : [""]
+    },
+    {
+        id : 6,
+        title : "커뮤니티당",
+        category : CommunityCategory.announcement,
+        time : "2025.04.01",
+        owner : "나당",
+        comment : ["", ""]
+    },
+    {
+        id : 7,
+        title : "커뮤니티당2",
+        category : CommunityCategory.announcement,
+        time : "2025.04.01",
+        owner : "나당",
+        comment : []
+    },
+    {
+        id : 8,
         title : "커뮤니티당3",
         category : CommunityCategory.announcement,
         time : "2025.04.01",
